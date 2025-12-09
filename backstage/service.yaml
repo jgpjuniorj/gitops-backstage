@@ -9,4 +9,6 @@ spec:
   ports:
     - port: 7007
       targetPort: 7007
-  type: ClusterIP
+      nodePort: 7007
+  type: NodePort
+  
