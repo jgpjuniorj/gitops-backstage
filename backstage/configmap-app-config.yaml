@@ -15,3 +15,4 @@ data:
     techdocs:
       builder: 'local'
       generator:
+        runIn: 'local'
