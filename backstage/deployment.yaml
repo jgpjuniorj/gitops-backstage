@@ -16,13 +16,38 @@ spec:
       containers:
         - name: backstage
           image: ghcr.io/backstage/backstage:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 7007
+          # Garante entrada do backend; algumas imagens precisam do comando explícito
+          command: ["node"]
+          args: ["packages/backend/dist/index.js"]
+          env:
+            # Aponta para o arquivo montado via ConfigMap
+            - name: APP_CONFIG_app_config_yaml
+              value: /app/app-config.yaml
           volumeMounts:
             - name: app-config
               mountPath: /app/app-config.yaml
               subPath: app-config.yaml
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 7007
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 7007
+            initialDelaySeconds: 30
+            periodSeconds: 15
       volumes:
         - name: app-config
           configMap:
             name: backstage-app-config
+            items:
+              - key: app-config.yaml
+                path: app-config.yaml
+      # Se precisar autenticar no GHCR, adicione imagePullSecrets aqui
+      # imagePullSecrets:

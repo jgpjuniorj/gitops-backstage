@@ -8,6 +8,6 @@ spec:
   selector:
     app: backstage
   ports:
-    - port: 80
-      targetPort: 80
-      nodePort: 7007
+    - port: 7007
+      targetPort: 7007
+      nodePort: 37007
