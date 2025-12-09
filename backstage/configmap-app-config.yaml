@@ -8,7 +8,8 @@ data:
     app:
       title: Backstage Demo
     backend:
-      baseUrl: http://localhost:7007
+      # IMPORTANT: use o host do Ingress
+      baseUrl: http://backstage.127.0.0.1.nip.io
       listen:
         port: 7007
     techdocs:
