@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backstage-app-config
+  namespace: backstage
+data:
+  app-config.yaml: |
+    app:
+      title: Backstage Demo
+    backend:
+      baseUrl: http://localhost:7007
+      listen:
+        port: 7007
+    techdocs:
+      builder: 'local'
+      generator:
