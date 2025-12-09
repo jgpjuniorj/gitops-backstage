@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backstage
+  namespace: backstage
 spec:
   replicas: 1
   selector:
@@ -17,3 +18,11 @@ spec:
           image: backstage/demo:latest
           ports:
             - containerPort: 7007
+          volumeMounts:
+            - name: app-config
+              mountPath: /app/app-config.yaml
+              subPath: app-config.yaml
+      volumes:
+        - name: app-config
+          configMap:
+            name: backstage-app-config
